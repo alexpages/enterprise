@@ -1,6 +1,7 @@
 package com.alexpages.enterprise.controllers;
 
 import com.alexpages.enterprise.models.Employee;
+import com.alexpages.enterprise.models.EmployeeDto;
 import com.alexpages.enterprise.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +16,17 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PutMapping("/register")
-    public Employee registerNewEmployee(Employee employee){
+    public Employee registerNewEmployee(@RequestBody EmployeeDto employee){
         return employeeService.registerNewEmployee(employee);
     }
 
     @GetMapping("/")
-    public Optional<Employee> getEmployee(Long id){
+    public EmployeeDto getEmployee(Long id){
         return employeeService.findEmployeeById(id);
     }
 
     @DeleteMapping("/delete")
-    public Employee deleteEmployee(Employee employee){
-        return employeeService.registerNewEmployee(employee);
+    public void deleteEmployee(EmployeeDto employeeDto){
+        employeeService.deleteEmployee(employeeDto);
     }
-
-
-
-
-
 }

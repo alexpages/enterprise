@@ -1,11 +1,11 @@
 package com.alexpages.enterprise.services;
 
+import com.alexpages.enterprise.exceptions.EmployeeNotFoundException;
 import com.alexpages.enterprise.models.Employee;
+import com.alexpages.enterprise.models.EmployeeDto;
 import com.alexpages.enterprise.models.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,17 +14,30 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     //GET
-    public Optional<Employee> findEmployeeById(Long id){
-        return employeeRepository.findById(id);
+    public EmployeeDto findEmployeeById(Long id) {
+        return employeeRepository.findById(id)
+                .map(employee -> new EmployeeDto().builder()
+                        .id(employee.getId())
+                        .birthDate(employee.getBirthDate())
+                        .firstName(employee.getFirstName())
+                        .lastName(employee.getLastName())
+                        .build())
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with id: " + id + " not found"));
     }
 
     //PUT
-    public Employee registerNewEmployee(Employee employee){
+    public Employee registerNewEmployee(EmployeeDto employeeDto){
+        Employee employee = Employee.builder()
+                .id(employeeDto.getId())
+                .firstName(employeeDto.getFirstName())
+                .lastName(employeeDto.getLastName())
+                .birthDate(employeeDto.getBirthDate())
+                .build();
         return employeeRepository.save(employee);
     }
 
     //DELETE
-    public void deleteEmployee(Employee employee){
-        employeeRepository.delete(employee);
+    public void deleteEmployee(EmployeeDto employeeDto){
+        employeeRepository.deleteById(employeeDto.getId());
     }
 }
