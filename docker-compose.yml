@@ -3,17 +3,17 @@ services:
 
   enterprise-api:
     container_name: enterprise_container
-    image: enterprise
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - '8080-8080'
+    image: enterprise
     environment:
-      - SPRING_DATASOURCE_URL = jdbc:postgresql://postgres:5432/enterprise
-      - SPRING_DATASOURCE_USERNAME = postgres
-      - SPRING_DATASOURCE_PASSWORD = postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO = update
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/enterprise
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - db
     restart: on-failure
@@ -24,9 +24,9 @@ services:
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER = postgres
-      - POSTGRES_PASSWORD = postgres
-      - POSTGRES_DB = enterprise
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: enterprise
     restart: always #temporary
 
 
