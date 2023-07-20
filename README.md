@@ -14,20 +14,21 @@ This project is a basic structure proposal for a general enterprise combining bo
 
 To run a working copy of the code, go to [Running the project](#running-the-project).
 
-[//]: # ()
-[//]: # (Additionally:)
 
-[//]: # (- CI/CD: [Circle-Ci-Pipeline]&#40;https://app.circleci.com/pipelines/github/alexpages?filter=all&status=none&status=success&#41;)
+Additionally:
 
-[//]: # (- K8s: [K8s Configuration]&#40;/Users/alexpages/IdeaProjects/ebanking-api/k8s&#41;)
+- CI/CD: TBD
+- K8s: TBD
 
 ***
 ### Architecture
 This project follows the architecture shown below:
 
+![img.png](src/main/resources/Architecture.png)
 
 The application is wrapped with Docker which enables different containers:
 
+![img_1.png](src/main/resources/Docker_Architecture.png)
 
 _Note: Some configuration files and components have not been included into the image to ensure readability of what is more relevant._
 
